@@ -2,25 +2,27 @@ package com.example.streamflix.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
-
+import com.example.streamflix.model.Movie;
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Season {
+public class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private int seasonNumber;
+    long id;
 
     @ManyToOne
-    @JoinColumn(name = "series_id")
+    private Movie movie;
+
+    @ManyToOne
     private Series series;
 
-    @OneToMany(mappedBy = "season", cascade = CascadeType.ALL)
-    private List<Episode> episodes;
+    private String content_type;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

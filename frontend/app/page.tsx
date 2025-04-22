@@ -15,7 +15,7 @@ export default function OTTPlatform() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation Bar */}
-      <header className="fixed top-0 w-full z-50 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm">
+      {/* <header className="fixed top-0 w-full z-50 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm">
         <div className="container flex items-center justify-between py-4">
           <div className="flex items-center gap-8">
             <Link href="/" className="pl-10 text-2xl font-bold text-red-600">
@@ -64,6 +64,39 @@ export default function OTTPlatform() {
             </Avatar>
           </div>
         </div>
+      </header> */}
+
+      <header className="fixed top-0 w-full bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm">
+        <div className="flex justify-between py-4">
+          <Link href="/" className="px-10 text-2xl font-bold text-red-600">
+            StreamFlix
+          </Link>
+          <nav className="flex space-x-6 justify-between pt-2">
+            <Link href='#' className="text-sm font-medium text-white/70 hover:text-white">
+              Home
+            </Link>
+            <Link href='#' className="text-sm font-medium text-white/70 hover:text-white">
+              TV Shows
+            </Link>
+            <Link href='#' className="text-sm font-medium text-white/70 hover:text-white">
+              Movies
+            </Link>
+            <Link href='#' className="text-sm font-medium text-white/70 hover:text-white">
+              New & Popular
+            </Link>
+            <Link href='#' className="text-sm font-medium text-white/70 hover:text-white">
+              My List
+            </Link>
+          </nav>
+          <div className="relative hidden md:flex items-center">
+              <Search className="absolute left-2.5 h-4 w-4 text-white/70" />
+              <Input
+                type="search"
+                placeholder="Titles, people, genres"
+                className="w-[180px] lg:w-[240px] pl-8 bg-black/20 border-white/10 text-sm focus-visible:ring-white/20"
+              />
+            </div>
+        </div>
       </header>
 
       <main className="pt-16">
@@ -88,7 +121,7 @@ export default function OTTPlatform() {
                 <Play className="h-5 w-5" />
                 Play
               </Button>
-              <Button variant="secondary" className="gap-2 text-lg px-6 py-6 bg-white/20 hover:bg-white/30">
+              <Button variant="secondary" className="gap-2 text-lg px-6 py-6 bg-white/70 hover:bg-white">
                 <Plus className="h-5 w-5" />
                 My List
               </Button>

@@ -3,6 +3,7 @@ package com.example.streamflix.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,4 +27,7 @@ public class User {
 
     @ManyToMany
     private List<Movie> continueWatching;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Content> myList = new ArrayList<>();
 }

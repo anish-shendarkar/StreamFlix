@@ -3,6 +3,8 @@ package com.example.streamflix.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,7 +18,8 @@ public class Series {
     private String title;
     private String description;
     private String genre;
-    private boolean isPublished;
+    private Boolean isPublished;
 
-
+    @OneToMany(mappedBy = "series", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Season> seasons;
 }

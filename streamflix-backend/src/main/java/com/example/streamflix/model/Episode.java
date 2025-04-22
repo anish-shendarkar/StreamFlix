@@ -22,5 +22,6 @@ public class Episode {
     private Duration duration;
 
     @ManyToOne
+    @JoinColumn(name = "season_id")
     private Season season;
 }
