@@ -15,6 +15,7 @@ public class AdminService {
     private final SeriesRepository seriesRepo;
 
     public String addMovie(Movie movie) {
+        System.out.println(movie);
         movieRepo.save(movie);
         return "Movie saved";
     }
