@@ -1,5 +1,6 @@
 package com.example.streamflix.controller;
 
+import com.example.streamflix.dto.LoginRequest;
 import com.example.streamflix.model.User;
 import com.example.streamflix.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public String signin(@RequestParam String username, @RequestParam String password) {
+    public String signin(@RequestBody LoginRequest loginRequest) {
+        String username = loginRequest.getUsername();
+        String password = loginRequest.getPassword();
         return authService.signin(username, password);
     }
 }

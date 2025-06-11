@@ -18,6 +18,8 @@ public class Movie {
     private String title;
     private String description;
     private String genre;
-    private String fileName;
     private LocalDate releaseDate;
+
+    private String thumbnail;
+    private String videoFile;
 }
