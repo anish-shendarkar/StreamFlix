@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin")
 @RequiredArgsConstructor
@@ -29,8 +31,37 @@ public class AdminController {
         return ResponseEntity.ok(adminService.addMovie(movie, thumbnail, videoFile));
     }
 
-    @PostMapping("/addseries")
-    public ResponseEntity<String> addSeries(@RequestBody Series series) {
-        return ResponseEntity.ok(adminService.addSeries(series));
+    @PostMapping("/series")
+    public ResponseEntity<String> addSeries(
+            @RequestPart("series") @Valid @NotNull Series series,
+            @RequestPart("thumbnail") MultipartFile thumbnail
+    ) {
+        String result = adminService.addSeries(series, thumbnail);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/series")
+    public ResponseEntity<List<Series>> getAllSeries() {
+        return ResponseEntity.ok(adminService.getAllSeries());
+    }
+
+    @GetMapping("/series/{id}")
+    public ResponseEntity<Series> getSeriesById(@PathVariable Long id) {
+        return ResponseEntity.ok(adminService.getSeriesById(id));
+    }
+
+    @PutMapping("/series/{id}")
+    public ResponseEntity<String> updateSeries(
+            @PathVariable Long id,
+            @RequestPart("series") Series series,
+            @RequestPart(value = "thumbnail", required = false) MultipartFile thumbnail) {
+        String result = adminService.updateSeries(id, series, thumbnail);
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/series/{id}")
+    public ResponseEntity<String> deleteSeries(@PathVariable Long id) {
+        String result = adminService.deleteSeries(id);
+        return ResponseEntity.ok(result);
     }
 }

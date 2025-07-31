@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,6 +22,8 @@ public class AdminService {
 
     private final MovieRepository movieRepo;
     private final SeriesRepository seriesRepo;
+
+    // Movie methods
 
     public String addMovie(Movie movie, MultipartFile thumbnail, MultipartFile videoFile) {
 
@@ -46,8 +49,71 @@ public class AdminService {
         }
     }
 
-    public String addSeries(Series series) {
-        seriesRepo.save(series);
-        return "Series saved";
+    public List<Movie> getAllMovies() {
+        return movieRepo.findAll();
+    }
+
+    public Movie getMovieById(Long id) {
+        return movieRepo.findById(id)
+                .orElseThrow(()-> new RuntimeException("Movie not found"));
+    }
+
+    // Series methods
+
+    public String addSeries(Series series, MultipartFile thumbnail) {
+
+        try {
+            String thumbnailName = UUID.randomUUID() + "_" + thumbnail.getOriginalFilename();
+            Path thumbnailPath = Paths.get("uploads/thumbnails").resolve(thumbnailName);
+            Files.createDirectories(thumbnailPath.getParent());
+            Files.copy(thumbnail.getInputStream(), thumbnailPath, StandardCopyOption.REPLACE_EXISTING);
+
+            series.setThumbnail(thumbnailName);
+            seriesRepo.save(series);
+            return "Series added succesfully";
+        } catch (IOException e) {
+            return "Failed to create series: " + e.getMessage();
+        }
+    }
+
+    public List<Series> getAllSeries() {
+        return seriesRepo.findAll();
+    }
+
+    public Series getSeriesById(Long id) {
+        return seriesRepo.findById(id)
+                .orElseThrow(()->new RuntimeException("Series not found"));
+    }
+
+    public String updateSeries(Long id, Series series, MultipartFile thumbnail) {
+        try {
+            Series existingSeries = getSeriesById(id);
+
+            existingSeries.setTitle(series.getTitle());
+            existingSeries.setDescription(series.getDescription());
+            existingSeries.setGenre(series.getGenre());
+            existingSeries.setReleaseDate(series.getReleaseDate());
+            existingSeries.setIsPublished(series.getIsPublished());
+
+            if(thumbnail != null && !thumbnail.isEmpty()) {
+                String thumbnailName = UUID.randomUUID() +"_"+thumbnail.getOriginalFilename();
+                Path thumbnailPath = Paths.get("uploads/thumbnails").resolve(thumbnailName);
+                Files.copy(thumbnail.getInputStream(), thumbnailPath, StandardCopyOption.REPLACE_EXISTING);
+                existingSeries.setThumbnail(thumbnailName);
+            }
+            seriesRepo.save(existingSeries);
+            return "Series updated successfully";
+        } catch (Exception e) {
+            return "Failed to update series: " + e.getMessage();
+        }
+    }
+
+    public String deleteSeries(Long id) {
+        try {
+            seriesRepo.deleteById(id);
+            return "Series deleted successfully";
+        } catch (Exception e) {
+            return "Failed to delete series: " + e.getMessage();
+        }
     }
 }
