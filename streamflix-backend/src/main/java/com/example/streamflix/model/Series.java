@@ -2,7 +2,7 @@ package com.example.streamflix.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,5 +25,6 @@ public class Series {
     private String thumbnail;
 
     @OneToMany(mappedBy = "series", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("series-seasons")
     private List<Season> seasons;
 }
