@@ -48,4 +48,14 @@ public class UserController {
     public ResponseEntity<String> removeFromList(@PathVariable Long itemId, @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(userService.removeFromList(user, itemId));
     }
+
+    @GetMapping("/movie/{id}")
+    public ResponseEntity<Movie> getMovie(@PathVariable Long movieId) {
+        return ResponseEntity.ok(userService.getMovie(movieId));
+    }
+
+    @GetMapping("/series/{id}")
+    public ResponseEntity<Series> getSeries(@PathVariable Long seriesId) {
+        return ResponseEntity.ok(userService.getSeries(seriesId));
+    }
 }

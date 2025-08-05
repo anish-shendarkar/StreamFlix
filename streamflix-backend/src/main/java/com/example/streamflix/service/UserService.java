@@ -66,6 +66,16 @@ public class UserService {
         userRepo.save(user);
         return "Item removed from list";
     }
+
+    public Movie getMovie(Long movieId) {
+        return movieRepo.findById(movieId)
+                .orElseThrow(()->new RuntimeException("Movie not found"));
+    }
+
+    public Series getSeries(Long seriesId) {
+        return seriesRepo.findById(seriesId)
+                .orElseThrow(()->new RuntimeException("Series not found"));
+    }
 }
 
 
