@@ -49,12 +49,12 @@ public class UserController {
         return ResponseEntity.ok(userService.removeFromList(user, itemId));
     }
 
-    @GetMapping("/movie/{id}")
+    @GetMapping("/movie/{movieId}")
     public ResponseEntity<Movie> getMovie(@PathVariable Long movieId) {
         return ResponseEntity.ok(userService.getMovie(movieId));
     }
 
-    @GetMapping("/series/{id}")
+    @GetMapping("/series/{seriesId}")
     public ResponseEntity<Series> getSeries(@PathVariable Long seriesId) {
         return ResponseEntity.ok(userService.getSeries(seriesId));
     }

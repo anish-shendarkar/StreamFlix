@@ -8,12 +8,14 @@ import com.example.streamflix.repository.MovieRepository;
 import com.example.streamflix.repository.SeriesRepository;
 import com.example.streamflix.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
     private final MovieRepository movieRepo;
@@ -68,6 +70,7 @@ public class UserService {
     }
 
     public Movie getMovie(Long movieId) {
+        log.info("fetch: ", movieId);
         return movieRepo.findById(movieId)
                 .orElseThrow(()->new RuntimeException("Movie not found"));
     }
